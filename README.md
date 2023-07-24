@@ -1,11 +1,9 @@
-# Example Express.js Application
+# Example Next.js Application
 
-This repo holds an example Express.js application that uses FusionAuth as the identity provider. 
-This application will use an OAuth Authorization Code Grant workflow to log a user in and 
-get them access and refresh tokens.
+This repo holds an example Next.js application that uses FusionAuth as the identity provider.
+This application uses [NextAuth.js](https://next-auth.js.org/) which includes a [FusionAuth](https://next-auth.js.org/providers/fusionauth) provider.
 
-
-This application was built by following the [Express.js Quickstart](https://fusionauth.io/docs/quickstarts/quickstart-javascript-express-web/).
+This application was built by following the [Next.js Quickstart](https://fusionauth.io/docs/quickstarts/quickstart-javascript-nextjs-web/).
 
 ## Project Contents
 
@@ -14,8 +12,9 @@ The `docker-compose.yml` file and the `kickstart` directory are used to start an
 The `/complete-application` directory contains a fully working version of the application.
 
 ## Project Dependencies
-* Docker, for running FusionAuth
-* Node 16 or later, for running the Changebank Express.js application
+
+- Docker, for running FusionAuth
+- Node 16 or later, for running the Changebank Next.js application
 
 ## Running FusionAuth
 
@@ -31,6 +30,7 @@ docker-compose up
 This will start a PostgreSQL database, and Elastic service, and the FusionAuth server.
 
 ## Running the Example App
+
 To run the application, first go into the project directory
 
 ```shell
@@ -41,12 +41,6 @@ Install dependencies
 
 ```shell
 npm install
-```
-
-Run Setup in `/complete-application/src/setup.ts`
-
-```shell
-npm run setup
 ```
 
 Start the application
