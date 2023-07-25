@@ -37,8 +37,6 @@ export const authOptions =
     ],
 }
 
-console.log('authoption', authOptions)
-
 const handler = NextAuth(authOptions)
 
 export { handler as GET, handler as POST }
