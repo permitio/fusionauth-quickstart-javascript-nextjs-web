@@ -2,7 +2,7 @@
 
 import { signIn, signOut } from 'next-auth/react';
 
-export default function Component({ session }: { session: any }) {
+export default function LoginButton({ session }: { session: any }) {
   if (session) {
     return (
       <>
