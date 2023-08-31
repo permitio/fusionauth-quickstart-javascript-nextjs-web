@@ -37,6 +37,12 @@ To run the application, first go into the project directory
 cd complete-application
 ```
 
+Create a local environment file
+
+```shell
+cp .env.example .env.local
+```
+
 Install dependencies
 
 ```shell
