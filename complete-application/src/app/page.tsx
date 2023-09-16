@@ -2,7 +2,7 @@ import { getServerSession } from 'next-auth';
 import Image from 'next/image';
 import { redirect } from 'next/navigation';
 import { authOptions } from './api/auth/[...nextauth]/route';
-import LoginButton from '../components/LoginButton';
+import LoginLink from '../components/LoginLink';
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
@@ -17,8 +17,7 @@ export default async function Home() {
           <div className="content-container">
             <div style={{ marginBottom: '100px' }}>
               <h1>Welcome to Changebank</h1>
-              <p>To get started</p>
-              <LoginButton session={session} />
+              <LoginLink session={session} />
             </div>
           </div>
           <div style={{ width: '100%', maxWidth: 800 }}>

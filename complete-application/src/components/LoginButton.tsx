@@ -15,7 +15,6 @@ export default function LoginButton({ session }: { session: any }) {
   }
   return (
     <>
-      Status: Not logged in <br />
       <button className="button-lg" onClick={() => signIn()}>
         Log in
       </button>
