@@ -45,6 +45,20 @@ services:
     networks:
       - search_net
 
+  pdp:
+    image: permitio/pdp-v2:latest
+    environment:
+      - PDP_API_KEY=${PERMIT_API_KEY}
+      - PDP_OPA_CLIENT_QUERY_TIMEOUT=60
+      - PDP_DEBUG=True
+      - proxy_facts_via_pdp=True
+    ports:
+      - "7766:7000"
+      - "8181:8181"
+    restart: unless-stopped
+    networks:
+      - pdp_net
+
   fusionauth:
     image: fusionauth/fusionauth-app:latest
     depends_on:
@@ -78,6 +92,8 @@ networks:
   db_net:
     driver: bridge
   search_net:
+    driver: bridge
+  pdp_net:
     driver: bridge
 
 volumes:

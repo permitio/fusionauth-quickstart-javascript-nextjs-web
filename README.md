@@ -24,6 +24,21 @@ In the root of this project directory (next to this README) are two files [a Doc
 docker compose up -d
 ```
 
+### Permit.io Integration
+
+This project includes a Permit.io Policy Decision Point (PDP) service for authorization. Before running the application, you need to:
+
+1. [Obtain a Permit.io API](https://docs.permit.io/overview/use-the-permit-api-and-sdk/#obtain-your-api-key) key from your [Permit.io account](https://app.permit.io/)
+2. Add the API key to your `.env` file:
+
+```
+PERMIT_API_KEY=your_permit_api_key_here
+```
+
+The PDP service will be available at:
+- Main PDP service: http://localhost:7766
+- OPA service: http://localhost:8181
+
 The FusionAuth configuration files also make use of a unique feature of FusionAuth, called [Kickstart](https://fusionauth.io/docs/v1/tech/installation-guide/kickstart): when FusionAuth comes up for the first time, it will look at the [Kickstart file](./kickstart/kickstart.json) and mimic API calls to configure FusionAuth for use when it is first run. 
 
 > **NOTE**: If you ever want to reset the FusionAuth system, delete the volumes created by docker compose by executing `docker compose down -v`. 
