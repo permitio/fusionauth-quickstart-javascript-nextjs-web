@@ -35,6 +35,7 @@ export async function middleware(request: NextRequest) {
     // due to Edge runtime limitations
   }
   
+  // Simply pass the request through to the application
   return NextResponse.next();
 }
 
@@ -43,5 +44,9 @@ export const config = {
     // Add paths that should be checked by the middleware
     '/makechange',
     // Add more paths as needed
+    // Apply to all API routes that need authorization
+    '/api/permit/:path*',
+    '/api/makechange/:path*',
+    '/api/auth/:path*',
   ],
 }; 

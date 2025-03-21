@@ -3,6 +3,7 @@
 import { SessionProvider } from 'next-auth/react';
 import { ReactNode, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
+import { syncUserAction } from '../actions/permit';
 
 // Component to handle user synchronization with Permit.io
 function UserSyncHandler() {
@@ -11,13 +12,14 @@ function UserSyncHandler() {
   useEffect(() => {
     // Only sync if the user is authenticated and hasn't been synced yet
     if (status === 'authenticated' && session && session.userSyncedWithPermit === false) {
-      // Call the sync API endpoint
-      fetch('/api/permit/sync', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }).catch(error => {
+      // Try to get country from localStorage if available
+      let country;
+      if (typeof window !== 'undefined') {
+        country = localStorage.getItem('selectedCountry');
+      }
+      
+      // Use the server action instead of API endpoint
+      syncUserAction(country || undefined).catch(error => {
         console.error('Error syncing user with Permit.io:', error);
       });
     }
