@@ -20,9 +20,27 @@ The `/complete-application` directory contains a fully working version of the ap
 
 In the root of this project directory (next to this README) are two files [a Docker compose file](./docker-compose.yml) and an [environment variables configuration file](./.env). Assuming you have Docker installed on your machine, you can stand up FusionAuth up on your machine with:
 
+```docker compose up -d
 ```
-docker compose up -d
+
+### Automated Startup with Terraform Configuration
+
+This project includes a startup script that will automatically:
+1. Configure Permit.io using Terraform with your exported Permit configuration
+2. Start the Docker services including FusionAuth and the Permit.io PDP
+
+To use this automated startup:
+
+1. Make sure Terraform is installed on your system. If not, [install Terraform](https://developer.hashicorp.com/terraform/install).
+2. Ensure your `.env` file contains your `PERMIT_API_KEY`.
+3. Run the startup script:
+```shell
+./startup.sh
 ```
+
+This script will apply your Permit.io configuration before starting the Docker services, ensuring that the PDP has the correct configuration when it comes online.
+
+> **NOTE**: If you've already exported your Permit configuration using `permit env export terraform`, the startup script will use this configuration. Otherwise, the default configuration in the terraform directory will be used.
 
 ### Permit.io Integration
 
@@ -52,6 +70,29 @@ FusionAuth will be initially configured with these settings:
 * Your fusionAuthBaseUrl is 'http://localhost:9011/'
 
 You can log into the [FusionAuth admin UI](http://localhost:9011/admin) and look around if you want, but with Docker/Kickstart you don't need to.
+
+## Permit.io Authorization Setup
+
+This application uses Permit.io for fine-grained authorization:
+
+1. [Create a Permit.io account](https://app.permit.io/signup) if you don't have one
+2. Create a new project in Permit.io dashboard
+3. [Generate an API key](https://docs.permit.io/overview/use-the-permit-api-and-sdk/#obtain-your-api-key) with the appropriate permissions
+4. Add the API key to your `.env` file:
+   ```
+   PERMIT_API_KEY=your_permit_api_key_here
+   ```
+
+The application automatically:
+- Syncs authenticated users with Permit.io
+- Performs permission checks on both client and server
+- Conditionally renders UI elements based on user permissions
+
+Default permissions in the example app:
+- Regular users (`richard@example.com`) have limited capabilities
+- Admin users (`admin@example.com`) have additional administrative permissions
+
+You can customize roles and permissions through the [Permit.io dashboard](https://app.permit.io).
 
 ## Running the Example App
 
