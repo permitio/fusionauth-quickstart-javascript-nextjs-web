@@ -62,11 +62,11 @@ In the Permit.io dashboard:
      - balance: view
      - change: make
 
+![Permit.io Dashboard Configuration](permit-dashboard.png)
+*Permit.io dashboard showing the overall permissions and roles configuration.*
+
 3. Add ABAC rules (example):
    - Only allow users to make a change if the resource's country matches the user's location and the amount is less than $1000.01.
-
-![Example ABAC Dynamic Resource Set in Permit.io](permit-resource-set.png)
-*Example: Permit.io dynamic resource set configuration for ABAC, matching user location and transaction amount.*
 
 ## Step 3: Integration Overview
 
@@ -142,6 +142,9 @@ const canMakeTransaction = await permit.check(
   }
 );
 ```
+
+![Example ABAC Dynamic Resource Set in Permit.io](permit-resource-set.png)
+*Example: Permit.io dynamic resource set configuration for ABAC, matching user location and transaction amount.*
 
 2. **Account Balance Visibility**:
 ```typescript
