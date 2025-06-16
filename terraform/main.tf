@@ -169,4 +169,12 @@ resource "permitio_resource_set" "No_approval_In_Region_Change" {
   depends_on  = [
     permitio_resource.change
   ]
+}
+
+resource "permitio_condition_set_rule" "allow_member_to_make_changes_in_region" {
+  user_set     = "member"
+  resource_set = "No_approval_In_Region_Change"
+  permission   = "change:make"
+  depends_on   = [permitio_role.member, permitio_resource_set.No_approval_In_Region_Change]
 } 
+
