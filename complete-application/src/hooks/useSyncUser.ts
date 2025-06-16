@@ -2,8 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
+import { syncUserAction } from '../actions/permit';
 
-export function useSyncUser() {
+export function useSyncUser(country?: string) {
   const { data: session, status } = useSession();
   const [isSynced, setIsSynced] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -23,19 +24,13 @@ export function useSyncUser() {
 
       try {
         setIsLoading(true);
-        const response = await fetch('/api/permit/sync', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
+        const result = await syncUserAction(country);
 
-        if (!response.ok) {
-          throw new Error('Failed to sync user with Permit.io');
+        if (result.error) {
+          throw new Error(result.error);
         }
 
-        const data = await response.json();
-        setIsSynced(data.success);
+        setIsSynced(result.success);
       } catch (err) {
         setError(err instanceof Error ? err : new Error('Unknown error'));
         console.error('Error syncing user with Permit.io:', err);
@@ -45,7 +40,7 @@ export function useSyncUser() {
     };
 
     syncUserWithPermit();
-  }, [session, status, isSynced]);
+  }, [session, status, isSynced, country]);
 
   return { isSynced, isLoading, error };
 } 

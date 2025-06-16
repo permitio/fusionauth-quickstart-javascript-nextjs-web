@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
+import { checkPermissionAction } from '../actions/permit';
 
 interface UsePermitProps {
   action: string;
@@ -24,23 +25,13 @@ export function usePermit({ action, resource }: UsePermitProps) {
 
       try {
         setIsLoading(true);
-        const response = await fetch('/api/permit/check', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            action,
-            resource,
-          }),
-        });
+        const result = await checkPermissionAction(action, resource);
 
-        if (!response.ok) {
-          throw new Error('Failed to check permission');
+        if (result.error) {
+          throw new Error(result.error);
         }
 
-        const data = await response.json();
-        setIsAllowed(data.permitted);
+        setIsAllowed(result.permitted);
       } catch (err) {
         setError(err instanceof Error ? err : new Error('Unknown error'));
         setIsAllowed(false);

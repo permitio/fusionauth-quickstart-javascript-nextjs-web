@@ -56,7 +56,17 @@
             "enabled": true,
             "accessTokenKeyId": "#{asymmetricKeyId}",
             "idTokenKeyId": "#{asymmetricKeyId}"
-          }
+          },
+          "roles": [
+            {
+              "name": "admin",
+              "description": "Administrative role with full access"
+            },
+            {
+              "name": "member",
+              "description": "Standard user with limited access"
+            }
+          ]
         }
       }
     },
@@ -88,6 +98,19 @@
     },
     {
       "method": "POST",
+      "url": "/api/user/registration/#{adminUserId}/#{applicationId}",
+      "body": {
+        "registration": {
+          "applicationId": "#{applicationId}",
+          "roles": [
+            "admin"
+          ]
+        },
+        "skipRegistrationVerification": true
+      }
+    },
+    {
+      "method": "POST",
       "url": "/api/user/registration/#{userUserId}",
       "body": {
         "user": {
@@ -101,7 +124,10 @@
           "applicationId": "#{applicationId}",
           "data": {
             "favoriteColor": "turquoise"
-          }
+          },
+          "roles": [
+            "member"
+          ]
         }
       }
     },
