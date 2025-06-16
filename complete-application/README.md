@@ -32,3 +32,32 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Authorization with Permit.io
+
+This application demonstrates fine-grained authorization using [Permit.io](https://permit.io):
+
+### Configuration
+- The application requires a valid Permit.io API key in your `.env.local` file
+- The key should be set as `PERMIT_API_KEY=your_api_key_here`
+- The Policy Decision Point (PDP) service runs on `http://localhost:7766`
+
+### Implementation Details
+- User synchronization: After authentication, users are automatically synced with Permit.io
+- Client-side permissions: Implemented via `usePermit` hook and client-side Permit SDK
+- Server-side permissions: Handled via server actions in `src/actions/permit.ts`
+- UI adaptation: Components conditionally render based on permission checks
+
+### Key Files
+- `src/utils/permit.ts` - Server-side Permit.io integration
+- `src/utils/client-permit.ts` - Client-side Permit.io integration
+- `src/hooks/usePermit.ts` - React hook for permission checks
+- `src/hooks/useSyncUser.ts` - Hook for user synchronization
+- `src/components/PermitSessionProvider.tsx` - Context provider for permissions
+
+### Testing
+- Login as `richard@example.com` (password: `password`) for regular user permissions
+- Login as `admin@example.com` (password: `password`) for administrative permissions
+- Modify permission rules through the [Permit.io dashboard](https://app.permit.io)
+
+For more information on Permit.io integration, see the [Permit.io documentation](https://docs.permit.io/).
