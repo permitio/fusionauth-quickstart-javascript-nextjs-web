@@ -20,7 +20,8 @@ The `/complete-application` directory contains a fully working version of the ap
 
 In the root of this project directory (next to this README) are two files [a Docker compose file](./docker-compose.yml) and an [environment variables configuration file](./.env). Assuming you have Docker installed on your machine, you can stand up FusionAuth up on your machine with:
 
-```docker compose up -d
+```
+docker compose up -d
 ```
 
 ### Automated Startup with Terraform Configuration
@@ -47,7 +48,7 @@ This script will apply your Permit.io configuration before starting the Docker s
 This project includes a Permit.io Policy Decision Point (PDP) service for authorization. Before running the application, you need to:
 
 1. [Obtain a Permit.io API](https://docs.permit.io/overview/use-the-permit-api-and-sdk/#obtain-your-api-key) key from your [Permit.io account](https://app.permit.io/)
-2. Add the API key to your `.env` file:
+2. Add the API key to your `complete-application/.env` file:
 
 ```
 PERMIT_API_KEY=your_permit_api_key_here

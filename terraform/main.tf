@@ -159,7 +159,7 @@ resource "permitio_resource_set" "No_approval_In_Region_Change" {
         },
         {
           "resource.amount": {
-            "less-than": 1000
+            "less-than": 1000.01
           }
         }
       ]
