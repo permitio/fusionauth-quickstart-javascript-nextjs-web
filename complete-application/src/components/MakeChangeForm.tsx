@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
+import { useSyncUser } from '../hooks/useSyncUser';
 
 // Define currency systems just for the UI display and selection
 const currencySystems = {
@@ -58,6 +59,9 @@ export default function MakeChangeForm() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
   const [isUnauthorized, setIsUnauthorized] = useState(false);
+
+  // Use the sync status hook
+  const { error: syncError } = useSyncUser(country);
 
   useEffect(() => {
     setMessage('');
@@ -247,7 +251,7 @@ export default function MakeChangeForm() {
               </p>
             </div>
             
-            {status === 'authenticated' && session?.userSyncedWithPermit === false && (
+            {syncError && (
               <div className="change-message" style={{ color: '#e67e22', marginBottom: '15px', padding: '10px', backgroundColor: '#fff3e0', borderRadius: '6px', fontSize: '0.9rem' }}>
                 <strong>Warning:</strong> Your user account was not properly synced with our permission system.
               </div>

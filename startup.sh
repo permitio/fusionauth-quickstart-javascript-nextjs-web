@@ -55,17 +55,17 @@ apply_terraform() {
 }
 
 # Function to start Docker Compose services
-start_docker_compose() {
-  echo "Starting Docker Compose services..."
-  docker-compose up -d
+# start_docker_compose() {
+#   echo "Starting Docker Compose services..."
+#   docker-compose up -d
   
-  if [ $? -eq 0 ]; then
-    echo "Docker Compose services started successfully"
-  else
-    echo "Error: Failed to start Docker Compose services"
-    exit 1
-  fi
-}
+#   if [ $? -eq 0 ]; then
+#     echo "Docker Compose services started successfully"
+#   else
+#     echo "Error: Failed to start Docker Compose services"
+#     exit 1
+#   fi
+# }
 
 # Main execution
 echo "Starting FusionAuth with Permit.io configuration..."
@@ -83,6 +83,6 @@ update_tfvars
 apply_terraform
 
 # Start Docker Compose services
-start_docker_compose
+# start_docker_compose
 
 echo "Startup complete. The application should now be running with the appropriate Permit.io configuration." 
